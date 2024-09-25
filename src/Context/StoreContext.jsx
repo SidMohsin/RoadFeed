@@ -48,7 +48,7 @@ const StoreContext = ({ children }) => {
     }
     const HandleDrag = (e) => {
         setMarker({ lat: e.target._lngLat.lat, lng: e.target._lngLat.lng })
-        setCustomLoad(!CustomLoad)
+        // setCustomLoad(!CustomLoad)
     }
     const values = {
         ShowMap,

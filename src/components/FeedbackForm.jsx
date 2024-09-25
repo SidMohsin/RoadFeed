@@ -3,7 +3,7 @@ import { Context } from '../Context/StoreContext';
 import axios from 'axios'
 import MapModel from './MapModel';
 const FeedbackForm = () => {
-  const { setShowModal, GetCurrentLocation, setMapRender, MapRender, setLoad, Marker } = useContext(Context);
+  const { setShowModal, GetCurrentLocation, setMapRender, MapRender, Marker } = useContext(Context);
   const [formData, setFormData] = useState({
     Name: "",
     Email: "",
@@ -12,8 +12,6 @@ const FeedbackForm = () => {
     State: "",
     Category: "Pathhole",
     Severity: "Low",
-    Latitude: Marker.lat,
-    Longitude: Marker.lng,
     Description: "",
     Image: null
   });
@@ -42,29 +40,47 @@ const FeedbackForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
 
     const formDataToSend = new FormData();
 
-    // Append each form field to the FormData object
-    Object.keys(formData).forEach((key) => {
-      formDataToSend.append(key, formData[key]);
-    });
 
     try {
+      const response = await axios.get(`https://api.olamaps.io/places/v1/reverse-geocode`, {
+        params: {
+          latlng: `${Marker.lat},${Marker.lng}`,
+          api_key: process.env.REACT_APP_OLA_PLACE,
+        },
+      });
+      if (response.data.status === 'ok') {
+        let address = response.data.results[0].formatted_address;
+        const parts = address.split(',').map(part => part.trim());
+        // Extract city, state, country, and pincode
+        formData.City = parts[parts.length - 4]; // Second last part
+        formData.State = parts[parts.length - 3]; // Last part before pincode
+      }
+      // Append each form field to the FormData object
+      Object.keys(formData).forEach((key) => {
+        formDataToSend.append(key, formData[key]);
+      });
+      formDataToSend.append('Latitude', Marker.lat);
+      formDataToSend.append('Longitude', Marker.lng);
+      // Log the FormData object for debugging (this won't show the contents directly, but it's a good practice)
+      console.log('Form Submitted:', Array.from(formDataToSend.entries()));
       // Send the FormData object using axios without wrapping it in an additional object
       const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/formsubmit`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(res.data);
+      if(res.data.code<=210){
+        console.log("Form Submitted");
+      }else{
+        console.log('Error in submitting form');
+      }
     } catch (error) {
       console.error(error);
     }
   };
-
-
   return (
     <div className="form-wrapper" id="feedback">
       <MapModel />
@@ -162,13 +178,12 @@ const FeedbackForm = () => {
           <div className='Input-Container-latLng'>
             <div className='Input-Container'>
               <label className="label">Latitude</label>
-              <input type="number" name="Latitude" onChange={handleInputChange} value={formData.Latitude} className="input" readOnly />
-
+              <input type="number" name="Latitude" value={Marker.lat} className="input" readOnly />
             </div>
             <div className='Input-Container'>
 
               <label className="label">Longitude</label>
-              <input type="number" name="Longitude" onChange={handleInputChange} value={formData.Longitude} className="input" readOnly />
+              <input type="number" name="Longitude" value={Marker.lng} className="input" readOnly />
             </div>
             <div>
 
