@@ -1,38 +1,163 @@
-.App {
+/* App.jsx CSS */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-feedback-button {
+  padding: 12px 24px;
+  background-color: #084c61;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.submit-feedback-button:hover {
+  background-color: #056c8c;
+}
+
+.footer-container {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* AdminPanel CSS */
+
+.admin-panel-container {
+  padding: 2rem;
+}
+
+.feedback-list {
+  margin-top: 1rem;
+}
+
+.feedback-item {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feedback-text {
+  margin: 0;
+}
+
+.feedback-status {
+  padding: 0.5rem;
+  border-radius: 3px;
+}
+
+.feedback-status.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.feedback-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.action-button {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #084c61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #056c8c;
+}
+
+/* Contact jsx file CSS */
+
+.contact-container {
+  padding: 40px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Feedback form CSS  */
+
+.form-wrapper {
+  padding: 2rem;
+  background-color: #f7f9fa;
+  max-width: 600px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.form-title {
+  text-align: center;
+  color: #084c61;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.label {
+  margin: 0.5rem 0;
+}
+
+.input,
+.textarea {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.submit-button {
+  padding: 0.7rem;
+  background-color: #084c61;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.submit-button:hover {
+  background-color: #066a81;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Input-Container{
+  display: flex;
+  flex-direction: column;
+}
+.Input-Container-Image{
+  display: flex;
+  flex-direction: row;
+}
+.select{
+  height: 30px;
+}
+.Input-Container-map{
+  display: grid;
+}
+.Input-Container-latLng{
+  display: flex;
+  flex-direction: row;
+  gap: 0px 1rem;
 }

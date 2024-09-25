@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import FeedbackSection from './components/FeedbackSection';
 import FeedbackForm from './components/FeedbackForm';
@@ -8,12 +8,12 @@ import AdminPanel from './components/AdminPanel';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Footer from './components/Footer';
-import styled from 'styled-components';
 import Feedback from './components/Feedback';
-import FeedbackDetails from './components/FeedbackDetails'; // Import FeedbackDetails page
+import FeedbackDetails from './components/FeedbackDetails';
+import './App.css'; // Import CSS file
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track login state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const feedbacks = [
     { id: 1, name: 'John Doe', contactNo: '1234567890', address: '123 Main St', status: 'Pending', email: 'john.doe@example.com', city: 'New York', state: 'NY', latitude: '40.7128', longitude: '-74.0060', description: 'Road issue', image: null },
@@ -23,9 +23,9 @@ function App() {
 
   return (
     <Router>
-      <AppContainer>
+      <div className="app-container">
         <Navbar isAuthenticated={isAuthenticated} />
-        <MainContent>
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/feedback" element={<FeedbackForm />} />
@@ -33,13 +33,13 @@ function App() {
             <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/admin/feedback" element={<Feedback feedbacks={feedbacks} />} />
-            <Route path="/feedback/details/:id" element={<FeedbackDetails feedbacks={feedbacks} />} /> {/* Route for Feedback Details */}
+            <Route path="/feedback/details/:id" element={<FeedbackDetails feedbacks={feedbacks} />} />
           </Routes>
-        </MainContent>
-        <FooterContainer>
-          <Footer /> 
-        </FooterContainer>
-      </AppContainer>
+        </main>
+        <footer className="footer-container">
+          <Footer />
+        </footer>
+      </div>
     </Router>
   );
 }
@@ -47,44 +47,10 @@ function App() {
 const Home = () => (
   <>
     <FeedbackSection />
-    <ButtonContainer>
-      <SubmitFeedbackButton href="/feedback">Submit Feedback</SubmitFeedbackButton>
-    </ButtonContainer>
+    <div className="button-container">
+      <Link className="submit-feedback-button" to="/feedback">Submit Feedback</Link>
+    </div>
   </>
 );
-
-const AppContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
-const MainContent = styled.main`
-  flex: 1;
-`;
-
-const ButtonContainer = styled.div`
-  text-align: center;
-  margin-top: 20px;
-`;
-
-const SubmitFeedbackButton = styled.a`
-  padding: 12px 24px;
-  background-color: #084c61;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1.1rem;
-
-  &:hover {
-    background-color: #056c8c;
-  }
-`;
-
-const FooterContainer = styled.footer`
-  position: relative;
-  bottom: 0;
-  width: 100%;
-`;
 
 export default App;
