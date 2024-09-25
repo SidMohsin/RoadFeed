@@ -3,6 +3,8 @@ import {OlaMaps} from '../OlaMapsWebSDK/olamaps-js-sdk.es'
 export const Context = createContext(null);
 
 const StoreContext = ({ children }) => {
+    // Response msg 
+    const [resmsg,setresmsg] = useState({code:400,msg:""})
     const [ShowMap, setShowmap] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [Marker, setMarker] = useState({
@@ -61,7 +63,8 @@ const StoreContext = ({ children }) => {
         HandleMapClick,
         HandleDrag,
         CustomLoad, setCustomLoad,
-        MapRender, setMapRender
+        MapRender, setMapRender,
+        resmsg,setresmsg
     };
 
     return (

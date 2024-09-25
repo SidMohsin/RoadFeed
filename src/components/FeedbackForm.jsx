@@ -10,7 +10,7 @@ const FeedbackForm = () => {
     Number: 0,
     City: "",
     State: "",
-    Category: "Pathhole",
+    Category: "Pothole",
     Severity: "Low",
     Description: "",
     Image: null
