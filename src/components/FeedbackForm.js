@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    email: '',  
     feedback: '',
     image: null,
   });
