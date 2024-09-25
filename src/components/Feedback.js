@@ -1,5 +1,6 @@
 // src/components/Feedback.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Feedback = ({ feedbacks }) => {
@@ -48,13 +49,22 @@ const Feedback = ({ feedbacks }) => {
           </tr>
         </thead>
         <tbody>
-          {currentFeedbacks.map(feedback => (
-            <tr key={feedback.id}>
+          {currentFeedbacks.map((feedback, index) => (
+            <tr key={index}>
               <td>{feedback.name}</td>
               <td>{feedback.contactNo}</td>
               <td>{feedback.address}</td>
               <td>{feedback.status}</td>
-              <td><VisitButton href="#">Visit</VisitButton></td>
+              <td>
+                <Link
+                  to={{
+                    pathname: `/feedback/details/${feedback.id}`,  // Link to feedback details page
+                    state: { feedback }  // Pass feedback data as state
+                  }}
+                >
+                  <VisitButton>Visit</VisitButton>
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -88,12 +98,13 @@ const Table = styled.table`
   }
 `;
 
-const VisitButton = styled.a`
+const VisitButton = styled.button`
   padding: 8px 16px;
   background-color: #084c61;
   color: white;
   border-radius: 5px;
-  text-decoration: none;
+  border: none;
+  cursor: pointer;
 
   &:hover {
     background-color: #056c8c;
