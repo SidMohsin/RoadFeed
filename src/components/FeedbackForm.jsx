@@ -1,20 +1,28 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../Context/StoreContext';
-
+import axios from 'axios'
+import MapModel from './MapModel';
 const FeedbackForm = () => {
-  const {ShowMap,setShowMap} = useContext(Context);
+  const { setShowModal, GetCurrentLocation, setMapRender, MapRender, setLoad, Marker } = useContext(Context);
   const [formData, setFormData] = useState({
     Name: "",
     Email: "",
     Number: 0,
     City: "",
     State: "",
-    Latitude: -1,
-    Longitude: -1,
+    Category: "Pathhole",
+    Severity: "Low",
+    Latitude: Marker.lat,
+    Longitude: Marker.lng,
     Description: "",
-    image: null
+    Image: null
   });
 
+  const HandleLocationClick = async () => {
+    await GetCurrentLocation();
+    setMapRender(!MapRender);
+  }
+  const handleShow = () => setShowModal(true);
   // State for storing image preview URL
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -22,12 +30,9 @@ const FeedbackForm = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const HandlemapModel = () => {
-    setShowMap(true)
-  }
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setFormData({ ...formData, image: file });
+    setFormData({ ...formData, Image: file });
 
     // Generate image preview URL
     if (file) {
@@ -35,14 +40,34 @@ const FeedbackForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form Submitted:', formData);
-    // Implement the API to submit the feedback and image to the server
+
+    const formDataToSend = new FormData();
+
+    // Append each form field to the FormData object
+    Object.keys(formData).forEach((key) => {
+      formDataToSend.append(key, formData[key]);
+    });
+
+    try {
+      // Send the FormData object using axios without wrapping it in an additional object
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/formsubmit`, formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
 
   return (
     <div className="form-wrapper" id="feedback">
+      <MapModel />
       <h2 className="form-title">Submit Feedback on Road Conditions</h2>
       <form className="form" onSubmit={handleSubmit}>
         {/* Name Field */}
@@ -90,13 +115,21 @@ const FeedbackForm = () => {
         {/* Category Field */}
         <div className="Input-Container">
           <label className="label" htmlFor="Category">Category</label>
-          <select name="Category" id="category" className="select">
-            <option value="pothole">Pothole</option>
-            <option value="cracks">Cracks</option>
-            <option value="blocked-road">Blocked Road</option>
-            <option value="flooding">Flooding</option>
-            <option value="traffic-signs">Missing/Damaged Traffic Signs</option>
-            <option value="street-lights">Street Lights Issue</option>
+          <select name="Category" id="category" className="select" defaultValue={'Potholes'} onChange={handleInputChange}>
+            <option value="Pothole" >Pothole</option>
+            <option value="Cracks">Cracks</option>
+            <option value="Blocked-road">Blocked Road</option>
+            <option value="Flooding">Flooding</option>
+            <option value="Traffic-signs">Missing/Damaged Traffic Signs</option>
+            <option value="Street-lights">Street Lights Issue</option>
+          </select>
+        </div>
+        <div className="Input-Container">
+          <label className="label" htmlFor="Severity" >Severity</label>
+          <select name="Saverity" id="Saverity" className="select" defaultValue={"Low"} onChange={handleInputChange}>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
           </select>
         </div>
 
@@ -108,7 +141,6 @@ const FeedbackForm = () => {
             value={formData.Description}
             onChange={handleInputChange}
             placeholder="Describe the issue..."
-            required
             className="textarea"
             cols={10}
           />
@@ -117,7 +149,7 @@ const FeedbackForm = () => {
         {/* Image Upload Field */}
         <div className="Input-Container-Image">
           <label className="label">Upload Image</label>
-          <input type="file" name="image" onChange={handleImageChange} className="input" />
+          <input type="file" name="Image" onChange={handleImageChange} className="input" required />
 
           {/* Image Preview */}
           {imagePreview && (
@@ -130,19 +162,24 @@ const FeedbackForm = () => {
           <div className='Input-Container-latLng'>
             <div className='Input-Container'>
               <label className="label">Latitude</label>
-              <input type="number" name="Latitude" onChange={handleImageChange} className="input" readOnly />
+              <input type="number" name="Latitude" onChange={handleInputChange} value={formData.Latitude} className="input" readOnly />
 
             </div>
             <div className='Input-Container'>
 
               <label className="label">Longitude</label>
-              <input type="number" name="Longitude" onChange={handleImageChange} className="input" readOnly />
+              <input type="number" name="Longitude" onChange={handleInputChange} value={formData.Longitude} className="input" readOnly />
+            </div>
+            <div>
+
+              <button type="button" className="btn btn-toggle-map" onClick={() => { handleShow(); HandleLocationClick(); }}>
+                Location
+              </button>
             </div>
           </div>
-          <button className='' onClick={HandlemapModel}>Detect Location</button>
         </div>
 
-        <button type="submit" className="submit-button">Submit Feedback</button>
+        <button type="submit" className="submit-button">Submit Report</button>
       </form>
     </div>
   );
