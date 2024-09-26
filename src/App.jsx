@@ -11,13 +11,12 @@ import Footer from './components/Footer';
 import Feedback from './components/Feedback';
 import FeedbackDetails from './components/FeedbackDetails';
 import './App.css'; // Import CSS file
-import MapModel from './components/MapModel';
 import { Context } from './Context/StoreContext';
 import Loading from './components/Loading/Loading'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { GetCurrentLocation, Load, setLoad } = useContext(Context)
+  const { GetCurrentLocation, Load, setLoad,fetchFeedback } = useContext(Context)
   useEffect(() => {
     // Fetch location when the component mounts
     const fetchLocation = async () => {
@@ -28,6 +27,12 @@ function App() {
 
     fetchLocation();
   }, []);
+  useEffect(()=>{
+    const fetchDetails = async()=>{
+      await fetchFeedback()
+    }
+    fetchDetails();
+  },[isAuthenticated])
   if (Load) {
     document.body.classList.add('scroll-none');
 

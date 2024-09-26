@@ -1,8 +1,10 @@
 import React, { createContext, useState } from 'react';
 import {OlaMaps} from '../OlaMapsWebSDK/olamaps-js-sdk.es'
+import axios from 'axios';
 export const Context = createContext(null);
 
 const StoreContext = ({ children }) => {
+    const [feedback,setfeedback] = useState([]);
     // Response msg 
     const [resmsg,setresmsg] = useState({code:400,msg:""})
     const [ShowMap, setShowmap] = useState(false);
@@ -52,6 +54,24 @@ const StoreContext = ({ children }) => {
         setMarker({ lat: e.target._lngLat.lat, lng: e.target._lngLat.lng })
         // setCustomLoad(!CustomLoad)
     }
+    const fetchFeedback = async()=>{
+        try{
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/feedback/all`).then((res)=>{
+                if(res.data.code <=210){
+                    setfeedback(res.data.data);
+                }else{
+                    setresmsg(res.data.msg);
+                }
+                console.log(res);
+            }).catch((e)=>{
+                console.log(e);
+            })
+            console.log(feedback)
+
+        }catch(e){
+            console.log("Http error failed")
+        }
+    }
     const values = {
         ShowMap,
         setShowmap,
@@ -64,9 +84,11 @@ const StoreContext = ({ children }) => {
         HandleDrag,
         CustomLoad, setCustomLoad,
         MapRender, setMapRender,
-        resmsg,setresmsg
+        resmsg,setresmsg,
+        feedback,setfeedback,
+        fetchFeedback
     };
-
+    
     return (
         <Context.Provider value={values}>
             {children}
