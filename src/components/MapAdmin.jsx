@@ -13,7 +13,7 @@ const MapAdmin = ({showModal,Lat,Lng,setShowModal}) => {
                     style: "https://api.olamaps.io/tiles/vector/v1/styles/default-light-standard/style.json",
                     container: 'Map', // Ensure this matches the div ID
                     center: [Lng,Lat],
-                    zoom: 20,
+                    zoom: 14,
                 });
 
                 const data = maps.addMarker({ offset: [0, 0], anchor: 0, draggable: false })

@@ -6,6 +6,8 @@ export const Context = createContext(null);
 const StoreContext = ({ children }) => {
     const [feedback,setfeedback] = useState([]);
     const [AdminAuth,setAdminAuth] = useState(false);
+    const [admins, setAdmins] = useState([]);
+    // const navigate
     // Response msg 
     const [resmsg,setresmsg] = useState({code:400,msg:""})
     const [ShowMap, setShowmap] = useState(false);
@@ -73,6 +75,37 @@ const StoreContext = ({ children }) => {
             console.log("Http error failed")
         }
     }
+    const checkAuth = async()=>{
+       try{
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/checkauth`,{},{withCredentials: true})
+        if(res.data.code<=210){
+            setAdminAuth(true);
+
+        }
+        console.log(res)
+       }catch(e){
+
+       }
+    }
+    const AdminDetails = async()=>{
+        try{
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/all`,{},{withCredentials:true}).then((res)=>{
+                console.log(res.data)
+                if(res.data.code <=210){
+                    setAdmins(res.data.data);
+                }else{
+                    setresmsg(res.data.msg);
+                }
+                // console.log(res);
+            }).catch((e)=>{
+                console.log(e);
+            })
+            // console.log(feedback)
+
+        }catch(e){
+            console.log("Http error failed")
+        }
+    }
     const values = {
         ShowMap,
         setShowmap,
@@ -88,7 +121,9 @@ const StoreContext = ({ children }) => {
         resmsg,setresmsg,
         feedback,setfeedback,
         fetchFeedback,
-        AdminAuth,setAdminAuth
+        AdminAuth,setAdminAuth,
+        checkAuth,AdminDetails,
+        admins, setAdmins
     };
     
     return (

@@ -74,6 +74,20 @@ const FeedbackForm = () => {
       });
       if(res.data.code<=210){
         console.log("Form Submitted");
+        setFormData({
+          Name: "",
+          Email: "",
+          Number: 0,
+          City: "",
+          State: "",
+          Category: "Pothole",
+          Severity: "Low",
+          Description: "",
+          Image: null
+        })
+        setImagePreview(null)
+        alert('Form Submitted')
+
       }else{
         console.log('Error in submitting form');
       }

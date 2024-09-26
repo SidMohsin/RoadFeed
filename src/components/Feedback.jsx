@@ -12,7 +12,7 @@ const Feedback = () => {
     }
   })
   const [currentPage, setCurrentPage] = useState(1);
-  const feedbackPerPage = 2; // Number of feedback per page
+  const feedbackPerPage = 5; // Number of feedback per page
   console.log(feedback)
   // Calculate the indices of the first and last feedback on the current page
   const indexOfLastFeedback = currentPage * feedbackPerPage;
