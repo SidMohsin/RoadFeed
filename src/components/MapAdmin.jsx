@@ -2,10 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { Context } from '../Context/StoreContext';
 import '../OlaMapsWebSDK/style.css';
 
-const MapModel = () => {
-    const { setShowModal, showModal, Marker, maps, HandleMapClick, CustomLoad, HandleDrag, MapRender, GetCurrentLocation, setCustomLoad } = useContext(Context);
+const MapAdmin = ({showModal,Lat,Lng,setShowModal}) => {
+    const { maps } = useContext(Context);
     useEffect(() => {
-        console.log(Marker)
         // Ensure the modal is open and maps object is available
         if (showModal && maps) {
             // Wait for the modal to fully render
@@ -13,25 +12,16 @@ const MapModel = () => {
                 const myMap = maps.init({
                     style: "https://api.olamaps.io/tiles/vector/v1/styles/default-light-standard/style.json",
                     container: 'Map', // Ensure this matches the div ID
-                    center: [Marker.lng, Marker.lat],
-                    zoom: 16,
+                    center: [Lng,Lat],
+                    zoom: 20,
                 });
 
-                const data = maps.addMarker({ offset: [0, 0], anchor: 0, draggable: true })
-                    .setLngLat([Marker.lng, Marker.lat])
+                const data = maps.addMarker({ offset: [0, 0], anchor: 0, draggable: false })
+                    .setLngLat([Lng,Lat])
                     .addTo(myMap);
                 console.log(data)
-                const handleMarkerDrag = (e) => {
-                    setCustomLoad(!CustomLoad);
-                    HandleDrag(e);
-                };
-
-                data.on('drag', handleMarkerDrag);
-                myMap.on('click', (e) => HandleMapClick(e, myMap));
-
                 // Clean up event listeners on component unmount
                 return () => {
-                    data.off('drag', handleMarkerDrag);
                     myMap.off('click');
                 };
             }, 100); // Delay to ensure modal is rendered
@@ -40,7 +30,7 @@ const MapModel = () => {
         } else {
             console.error("Map initialization error: maps object not available or modal not shown.");
         }
-    }, [MapRender]);
+    }, [showModal]);
 
     const handleClose = () => setShowModal(false);
 
@@ -74,10 +64,10 @@ const MapModel = () => {
                             <div className="modal-footer">
                                 <div className=''>
                                     <p>
-                                        Latitude : {Marker.lat}
+                                        Latitude : {Lat}
                                     </p>
                                     <p>
-                                        Longitude : {Marker.lng}
+                                        Longitude : {Lng}
                                     </p>
 
                                 </div>
@@ -86,11 +76,9 @@ const MapModel = () => {
                                     className="btn btn-secondary"
                                     onClick={handleClose}
                                 >
-                                    Confirm
+                                    Close
                                 </button>
-                                <button type="button" className="btn btn-primary" onClick={() => { GetCurrentLocation(); HandleMapClick() }}>
-                                    Detect
-                                </button>
+                                
                             </div>
                         </div>
                     </div>
@@ -100,4 +88,4 @@ const MapModel = () => {
     );
 };
 
-export default MapModel;
+export default MapAdmin;

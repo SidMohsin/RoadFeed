@@ -1,11 +1,13 @@
 // src/components/Login.js
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Context } from '../Context/StoreContext';
 
 const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {setAdminAuth} = useContext(Context);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -16,8 +18,8 @@ const Login = ({ setIsAuthenticated }) => {
 
     // Assuming the login is successful
     alert('Logged in successfully');
-    setIsAuthenticated(true); // Update authentication status
-    navigate('/admin'); // Redirect to admin panel
+    setAdminAuth(true); // Update authentication status
+    navigate('/admin/feedback'); // Redirect to admin panel
   };
 
   return (

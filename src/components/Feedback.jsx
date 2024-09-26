@@ -1,10 +1,16 @@
 // src/components/Feedback.js
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Context } from '../Context/StoreContext';
 
-const Feedback = ({ feedbacks }) => {
-  const { feedback } = useContext(Context);
+const Feedback = () => {
+  const { feedback,AdminAuth } = useContext(Context);
+  const navigate = useNavigate();
+  useEffect(()=>{
+    if (!AdminAuth) {
+      navigate('/login'); // Redirect to login if not authenticated
+    }
+  })
   const [currentPage, setCurrentPage] = useState(1);
   const feedbackPerPage = 2; // Number of feedback per page
   console.log(feedback)

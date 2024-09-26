@@ -5,6 +5,7 @@ export const Context = createContext(null);
 
 const StoreContext = ({ children }) => {
     const [feedback,setfeedback] = useState([]);
+    const [AdminAuth,setAdminAuth] = useState(false);
     // Response msg 
     const [resmsg,setresmsg] = useState({code:400,msg:""})
     const [ShowMap, setShowmap] = useState(false);
@@ -62,11 +63,11 @@ const StoreContext = ({ children }) => {
                 }else{
                     setresmsg(res.data.msg);
                 }
-                console.log(res);
+                // console.log(res);
             }).catch((e)=>{
                 console.log(e);
             })
-            console.log(feedback)
+            // console.log(feedback)
 
         }catch(e){
             console.log("Http error failed")
@@ -86,7 +87,8 @@ const StoreContext = ({ children }) => {
         MapRender, setMapRender,
         resmsg,setresmsg,
         feedback,setfeedback,
-        fetchFeedback
+        fetchFeedback,
+        AdminAuth,setAdminAuth
     };
     
     return (
