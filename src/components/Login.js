@@ -3,23 +3,39 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Context } from '../Context/StoreContext';
+import axios from 'axios';
 
 const Login = ({ setIsAuthenticated }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const {setAdminAuth} = useContext(Context);
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+  const { setAdminAuth } = useContext(Context);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     // Add login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/login`, { Email, Password },{withCredentials: true,}).then((res)=>{
+        return res;
+      }).catch((e)=>{
+        console.log("error in http reqiuest")
+      })
+      console.log(res)
+      if(res.data.code<=210){
+        alert('Success');
+        setAdminAuth(true); // Update authentication status
+        navigate('/admin/feedback'); // Redirect to admin panel
+        // Assuming the login is successful
+      }else{
+        alert(res.data.status);
+        setAdminAuth(false); // Update authentication status
+        navigate('/login'); // Redirect to admin panel
 
-    // Assuming the login is successful
-    alert('Logged in successfully');
-    setAdminAuth(true); // Update authentication status
-    navigate('/admin/feedback'); // Redirect to admin panel
+      }
+
+    } catch (e) {
+      console.log("Error is http requets")
+    }
   };
 
   return (
@@ -29,8 +45,8 @@ const Login = ({ setIsAuthenticated }) => {
         <FormGroup>
           <Label>Email</Label>
           <Input
-            type="email"
-            value={email}
+            type="Email"
+            value={Email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -38,8 +54,8 @@ const Login = ({ setIsAuthenticated }) => {
         <FormGroup>
           <Label>Password</Label>
           <Input
-            type="password"
-            value={password}
+            type="Password"
+            value={Password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />

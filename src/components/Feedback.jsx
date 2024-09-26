@@ -1,6 +1,6 @@
 // src/components/Feedback.js
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../Context/StoreContext';
 
 const Feedback = () => {
