@@ -46,7 +46,7 @@ function App() {
 
       <div className="app-container">
         <Navbar isAuthenticated={isAuthenticated} />
-        <main className="main-content container">
+        <main className="main-content container my-4">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/feedback" element={<FeedbackForm />} />

@@ -38,7 +38,7 @@ const AdministrationPage = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container-admin">
             <div className="header-container">
                 <h2>Administration</h2>
                 <button className="add-button" onClick={handleAddAdmin}>Add Administrator</button>
