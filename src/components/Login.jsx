@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
-        <h2>Login</h2>
+        <h2 className='text-center mb-3'>Login</h2>
         <div className="form-group">
           <label>Email</label>
           <input
@@ -61,7 +61,10 @@ const Login = () => {
             required
           />
         </div>
-        <button className="submit-button" type="submit">Login</button>
+        <div className='text-center'>
+
+          <button className="submit-button" type="submit">Login</button>
+        </div>
       </form>
     </div>
   );

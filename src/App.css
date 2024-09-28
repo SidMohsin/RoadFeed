@@ -2,12 +2,13 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  justify-content:  space-between; /* Add this to center the content vertically
+  /* align-items: center;     Add this to center the content horizontally (optional) */
+  min-height: 100vh;       /* This makes the container take up the full height of the viewport */
 }
 
 .main-content {
-  flex: 1;
-  
+  /* flex: 1 1; */
 }
 
 .button-container {
@@ -26,12 +27,6 @@
 
 .submit-feedback-button:hover {
   background-color: #056c8c;
-}
-
-.footer-container {
-  position: relative;
-  bottom: 0;
-  width: 100%;
 }
 
 /* AdminPanel CSS */
@@ -349,7 +344,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  width: 100%;
 }
 
 .login-form {
@@ -508,6 +503,7 @@
 
 .content {
   width: 100%;
+  overflow-x: auto;
 }
 
 .table-container {

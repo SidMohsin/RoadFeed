@@ -43,7 +43,7 @@ const AdministrationPage = () => {
                 <h2>Administration</h2>
                 <button className="add-button" onClick={handleAddAdmin}>Add Administrator</button>
             </div>
-            <div className="content">
+            <div className="content ">
                 {
                     admins.length === 0 ?
                         "No other user" :
