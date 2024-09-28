@@ -6,9 +6,9 @@ const SearchPage = () => {
     const [searchBy, setSearchBy] = useState('phone');
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredFeedbacks, setFilteredFeedbacks] = useState([]);
-    const { feedback,fetchFeedback } = useContext(Context);
+    const { feedback, fetchFeedback } = useContext(Context);
     useEffect(() => {
-        const fetchdata = async()=>{
+        const fetchdata = async () => {
             await fetchFeedback();
         }
         fetchdata();
@@ -24,7 +24,7 @@ const SearchPage = () => {
         } else if (searchBy === 'feedbackId') {
             result = feedback.filter(feedback => feedback._id === searchTerm);
         }
-        if(result.length===0){
+        if (result.length === 0) {
             alert(`No data found with ${searchTerm}`)
         }
         setFilteredFeedbacks(result);
@@ -33,9 +33,9 @@ const SearchPage = () => {
     return (
         <div className="search-container">
             <h2>Search Feedbacks</h2>
-            <div className="search-form">
+            <div className="search-form my-1 my-md-0">
                 {/* <label>Search by: </label> */}
-                <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)} className="input-field">
+                <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)} className="input-field my-2 my-md-0">
                     <option value="phone">Phone Number</option>
                     <option value="email">Email</option>
                     <option value="feedbackId">Feedback ID</option>
@@ -49,38 +49,40 @@ const SearchPage = () => {
                     className="input-field"
                 />
 
-                <button onClick={handleSearch} className="search-button">Search</button>
+                <button onClick={handleSearch} className="search-button my-2 my-md-0">Search</button>
             </div>
 
             {filteredFeedbacks.length > 0 ? (
-                <table className="results-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Contact No.</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Status</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredFeedbacks.map(feedback => (
-                            <tr key={feedback._id}>
-                                <td>{feedback.Name}</td>
-                                <td>{feedback.Number}</td>
-                                <td>{feedback.Email}</td>
-                                <td>{feedback.City}, {feedback.State}</td>
-                                <td>{feedback.Status}</td>
-                                <td>
-                                    <Link to={`/feedback/details/${feedback._id}`}>
-                                        <button className="visit-button">View Details</button>
-                                    </Link>
-                                </td>
+                <div className='result-cont'>
+                    <table className="results-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Contact No.</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Details</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {filteredFeedbacks.map(feedback => (
+                                <tr key={feedback._id}>
+                                    <td>{feedback.Name}</td>
+                                    <td>{feedback.Number}</td>
+                                    <td>{feedback.Email}</td>
+                                    <td>{feedback.City}, {feedback.State}</td>
+                                    <td>{feedback.Status}</td>
+                                    <td>
+                                        <Link to={`/feedback/details/${feedback._id}`}>
+                                            <button className="visit-button">View Details</button>
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <div className="no-results">No feedbacks found</div>
             )}

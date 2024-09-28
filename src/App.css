@@ -431,7 +431,9 @@
 .search-button:hover {
   background-color: #056c8c;
 }
-
+.result-cont{
+  overflow-x: auto;
+}
 .results-table {
   width: 100%;
   border-collapse: collapse;
