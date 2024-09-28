@@ -1,38 +1,595 @@
-.App {
+/* App.jsx CSS */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content:  space-between; /* Add this to center the content vertically
+  /* align-items: center;     Add this to center the content horizontally (optional) */
+  min-height: 100vh;       /* This makes the container take up the full height of the viewport */
+}
+
+.main-content {
+  /* flex: 1 1; */
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-feedback-button {
+  padding: 12px 24px;
+  background-color: #084c61;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.submit-feedback-button:hover {
+  background-color: #056c8c;
+}
+
+/* AdminPanel CSS */
+
+.admin-panel-container {
+  padding: 2rem;
+}
+
+.feedback-list {
+  margin-top: 1rem;
+}
+
+.feedback-item {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feedback-text {
+  margin: 0;
+}
+
+.feedback-status {
+  padding: 0.5rem;
+  border-radius: 3px;
+}
+
+.feedback-status.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.feedback-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.action-button {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #084c61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #056c8c;
+}
+
+/* Contact jsx file CSS */
+
+.contact-container {
+  padding: 40px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Feedback form CSS  */
+/* Ensure uniform height across inputs, select, and textarea */
+.input,
+.textarea,
+.select {
+  height: 40px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Adjust textarea height */
+.textarea {
+  height: 100px; /* Increase for larger text area */
+  resize: vertical;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* Consistent button styling */
+.submit-button,
+.btn-toggle-map {
+  padding: 0.7rem 1.2rem;
+  background-color: #084c61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.form-wrapper{
+  border:3px solid #084c61;
+  border-radius: 1.5rem;
+  padding: 2rem;
+}
+.submit-button:hover,
+.btn-toggle-map:hover {
+  background-color: #066a81;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Make sure the form title stands out */
+.form-title {
+  text-align: center;
+  color: #084c61;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Flex and grid adjustments */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.Input-Container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+.Input-image {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
+.Image-preview-img {
+  width: 100%;
+  height: 200px;
+  border-radius: 2rem;
+}
+.image-preview {
+  width: 48%;
+}
+.Input-Container-Image {
+  display: flex;
+  flex-direction: row;
+}
+
+.Input-Container-map {
+  display: grid;
+}
+
+.Input-Container-latLng {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* mapModel CSS  */
+
+/* Feedback CSS */
+.feedback-container {
+  padding: 20px;
+  /* overflow-x: scroll; */
+}
+
+.feedback-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.feedback-table th,
+.feedback-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.feedback-table th {
+  background-color: #f2f2f2;
+}
+
+.visit-button {
+  padding: 8px 16px;
+  background-color: #084c61;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.visit-button:hover {
+  background-color: #056c8c;
+}
+
+.pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-button {
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #ccc;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-button.active {
+  background-color: #084c61;
+  color: #fff;
+}
+
+.pagination-button:hover {
+  background-color: #056c8c;
+  color: #fff;
+}
+.feedback-table-container {
+  overflow-x: scroll;
+}
+
+/* FeedbackDetails CSS  */
+
+.details-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-container h2 {
+  color: #084c61;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.details-left,
+.details-right {
+  flex: 1;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.details-right img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #084c61;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 3rem;
+}
+
+.map-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.map-button:hover {
+  background-color: #218838;
+}
+
+/* Navbar CSS  */
+/* src/components/Navbar.css */
+.navbar-bg{
+  background-color: #084c61;
+
+}
+.navbar-logo {
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+.navbar-links {
+  display: flex;
+}
+
+.navbar-item {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  background-color: unset;
+  border: 0px;
+}
+
+.navbar-item:hover {
+  color: #ffcc00;
+}
+
+/* Login pages CSS */
+
+/* src/components/Login.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.login-form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-button {
+  width: fit-content;
+  padding: 0.5rem;
+  background-color: #084c61;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #056c8c;
+}
+
+.redirect-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.Status-change {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Status-change > p {
+  margin: 0px 10px;
+}
+
+.search-container {
+  padding: 20px;
+}
+
+.search-form {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.search-button {
+  padding: 10px 20px;
+  background-color: #084c61;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #056c8c;
+}
+.result-cont{
+  overflow-x: auto;
+}
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.results-table th,
+.results-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.results-table th {
+  background-color: #f2f2f2;
+}
+
+.visit-button {
+  padding: 8px 16px;
+  background-color: #084c61;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.visit-button:hover {
+  background-color: #056c8c;
+}
+
+.no-results {
+  color: #ff0000;
+  font-size: 16px;
+}
+
+.section-container {
+  background-color: #f3f4f4;
+  padding: 40px;
+  text-align: center;
+  margin: 3rem 0;
+  border-radius: 2rem;
+}
+
+.title {
+  color: #084c61;
+}
+
+.description {
+  color: #333;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.container-admin {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.header-container h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.content {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.add-button {
+  background-color: #084c61;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #056c8c;
+}
+
+.edit-button {
+  padding: 6px 12px;
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background-color: #ff7800;
+}
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signup-form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.submit-button:hover {
+  background-color: #056c8c;
+}
+
+.redirect-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
